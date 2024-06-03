@@ -1,6 +1,4 @@
-printing_the_header() {
-  echo $1
-}
+source common.sh
 
 printing_the_header "install nginx"
 dnf install nginx -y
