@@ -58,7 +58,7 @@ dnf install mysql -y &>>/tmp/expense.log
 echo $?
 
 printing_the_header "connecting to Database"
-mysql -h 172.31.43.37 -uroot -p$db_installation_password < /app/schema/backend.sql &>>/tmp/expense.log
+mysql -h 172.31.27.94 -uroot -p$db_installation_password < /app/schema/backend.sql &>>/tmp/expense.log
 echo $?
 
 printing_the_header "restarting the backend service"
