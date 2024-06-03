@@ -2,7 +2,7 @@ source common.sh
 
 db_installation_password=$1
 
-if [ ! -z "$db_installation_password" ]; then
+if [ -z "$db_installation_password" ]; then
   echo "password is empty, please rerun with correct password param"
   exit 1
 fi
