@@ -1,3 +1,5 @@
+db_installation_password=$1
+
 echo Disable default NodeJS Version Module
 dnf module disable nodejs -y &>>/tmp/expense.log
 echo $?
@@ -54,7 +56,7 @@ dnf install mysql -y &>>/tmp/expense.log
 echo $?
 
 echo connecting to Database
-mysql -h 172.31.43.37 -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>/tmp/expense.log
+mysql -h 172.31.43.37 -uroot -p$db_installation_password < /app/schema/backend.sql &>>/tmp/expense.log
 echo $?
 
 echo restarting the backend service

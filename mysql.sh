@@ -1,3 +1,5 @@
+db_installation_password=$1
+
 echo installing the mysql server
 dnf install mysql-server -y
 echo $?
@@ -8,5 +10,5 @@ systemctl start mysqld
 echo $?
 
 echo securely installing mysql
-mysql_secure_installation --set-root-pass ExpenseApp@1
+mysql_secure_installation --set-root-pass $db_installation_password
 echo $?
