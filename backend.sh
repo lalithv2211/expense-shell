@@ -93,7 +93,7 @@ else
 fi
 
 printing_the_header "connecting to Database"
-mysql -h 172.31.21.22 -uroot -p$db_installation_password < /app/schema/backend.sql &>>$log_file
+mysql -h mysql-dev.vsldo.online -uroot -p$db_installation_password < /app/schema/backend.sql &>>$log_file
 if [ $? -eq 0 ]; then
   print_error_status $?
 else
