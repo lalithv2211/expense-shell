@@ -8,65 +8,65 @@ if [ -z "$db_installation_password" ]; then
 fi
 
 printing_the_header "Disable default NodeJS Version Module"
-dnf module disable nodejs -y &>>/tmp/expense.log
+dnf module disable nodejs -y &>> $log_file
 print_error_status $?
 
 printing_the_header "Enable NodeJS module for V20"
-dnf module enable nodejs:20 -y &>>/tmp/expense.log
+dnf module enable nodejs:20 -y &>> $log_file
 print_error_status $?
 
 printing_the_header "Install NodeJS"
-dnf install nodejs -y &>>/tmp/expense.log
+dnf install nodejs -y &>>$log_file 
 print_error_status $?
 
 printing_the_header "Remove old files"
-rm -rf /app &>>/tmp/expense.log
+rm -rf /app &>>$log_file
 print_error_status $?
 
 printing_the_header "copying the service file"
-cp backend.service /etc/systemd/system/backend.service &>>/tmp/expense.log
+cp backend.service /etc/systemd/system/backend.service &>>$log_file
 print_error_status $?
 
 printing_the_header "adding user"
-useradd expense &>>/tmp/expense.log
+useradd expense &>>$log_file
 print_error_status $?
 
 printing_the_header "creating a new /app folder"
-mkdir /app &>>/tmp/expense.log
+mkdir /app &>>$log_file
 print_error_status $?
 
 printing_the_header "downloading the backend zip file"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip &>>/tmp/expense.log
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip &>>$log_file
 print_error_status $?
 
 printing_the_header "unzipping the downloaded zip file"
-cd /app &>>/tmp/expense.log
-unzip /tmp/backend.zip &>>/tmp/expense.log
+cd /app &>>$log_file
+unzip /tmp/backend.zip &>>$log_file
 print_error_status $?
 
 printing_the_header "npm install packages"
-cd /app &>>/tmp/expense.log
-npm install &>>/tmp/expense.log
+cd /app &>>$log_file
+npm install &>>$log_file
 print_error_status $?
 
 printing_the_header "daemon-reload step"
-systemctl daemon-reload &>>/tmp/expense.log
+systemctl daemon-reload &>>$log_file
 print_error_status $?
 
 printing_the_header "starting the backend service"
-systemctl enable backend &>>/tmp/expense.log
-systemctl start backend &>>/tmp/expense.log
+systemctl enable backend &>>$log_file
+systemctl start backend &>>$log_file
 print_error_status $?
 
 printing_the_header "installing the mysql"
-dnf install mysql -y &>>/tmp/expense.log
+dnf install mysql -y &>>$log_file
 print_error_status $?
 
 printing_the_header "connecting to Database"
-mysql -h 172.31.27.94 -uroot -p$db_installation_password < /app/schema/backend.sql &>>/tmp/expense.log
+mysql -h 172.31.27.94 -uroot -p$db_installation_password < /app/schema/backend.sql &>>$log_file
 print_error_status $?
 
 printing_the_header "restarting the backend service"
-systemctl restart backend &>>/tmp/expense.log
-systemctl status backend &>>/tmp/expense.log
+systemctl restart backend &>>$log_file
+systemctl status backend &>>$log_file
 print_error_status $?
