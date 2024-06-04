@@ -11,3 +11,39 @@ print_error_status() {
 }
 
 log_file=/home/logs/log1.txt
+
+# common steps
+# 1. removing old files
+# 3. downloading zip file
+# 4. unzipping the downloaded file
+
+app_reqs() {
+  printing_the_header "removing old files"
+  rm -rf ${app_dir} &>> $log_file
+  if [ $? -eq 0 ]; then
+    print_error_status $?
+  else
+    print_error_status $?
+    exit 2
+  fi
+
+  printing_the_header "downloading the ${component} files"
+  curl -o /tmp/${component}.zip https://expense-artifacts.s3.amazonaws.com/expense-${component}-v2.zip &>> $log_file
+  if [ $? -eq 0 ]; then
+    print_error_status $?
+  else
+    print_error_status $?
+    exit 2
+  fi
+
+  printing_the_header "unzipping the folder downloaded"
+  cd ${app_dir} &>> $log_file
+  unzip /tmp/${component}.zip &>> $log_file
+  if [ $? -eq 0 ]; then
+    print_error_status $?
+  else
+    print_error_status $?
+    exit 2
+  fi
+
+}

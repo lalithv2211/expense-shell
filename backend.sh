@@ -2,6 +2,9 @@ source common.sh
 
 db_installation_password=$1
 
+app_dir=/app
+component=backend
+
 if [ -z "$db_installation_password" ]; then
   echo "password is empty, please rerun with correct password param"
   exit 1
@@ -27,15 +30,6 @@ fi
 
 printing_the_header "Install NodeJS"
 dnf install nodejs -y &>>$log_file 
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
-fi
-
-printing_the_header "Remove old files"
-rm -rf /app &>>$log_file
 if [ $? -eq 0 ]; then
   print_error_status $?
 else
@@ -76,25 +70,7 @@ else
   exit 2
 fi
 
-printing_the_header "unzipping the downloaded zip file"
-cd /app &>>$log_file
-unzip /tmp/backend.zip &>>$log_file
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
-fi
-
-printing_the_header "npm install packages"
-cd /app &>>$log_file
-npm install &>>$log_file
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
-fi
+app_reqs
 
 printing_the_header "daemon-reload step"
 systemctl daemon-reload &>>$log_file
