@@ -4,8 +4,8 @@ printing_the_header() {
 
 print_error_status() {
   if [ $1 -eq 0 ]; then
-    echo "SUCCESS"
+    echo -e "\e[1;32m SUCCESS \e[0m"
   else
-    echo "FAILURE"
+    echo -e "\e[1;31m FAILURE \e[0m"
   fi
 }
