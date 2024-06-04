@@ -29,7 +29,7 @@ app_reqs() {
 
   printing_the_header "Create App Directory"
   mkdir ${app_dir} &>>$log_file
-  Check_Status $?
+  print_error_status $?
 
   printing_the_header "downloading the ${component} files"
   curl -o /tmp/${component}.zip https://expense-artifacts.s3.amazonaws.com/expense-${component}-v2.zip &>> $log_file
