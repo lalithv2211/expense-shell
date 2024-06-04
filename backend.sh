@@ -52,24 +52,6 @@ if [ $? -ne 0 ]; then
   useradd expense &>>$log_file
 fi
 
-printing_the_header "creating a new /app folder"
-mkdir /app &>>$log_file
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
-fi
-
-printing_the_header "downloading the backend zip file"
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/expense-backend-v2.zip &>>$log_file
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
-fi
-
 app_reqs
 
 printing_the_header "daemon-reload step"
