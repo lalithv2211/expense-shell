@@ -10,4 +10,4 @@ print_error_status() {
   fi
 }
 
-log_file = /home/logs/log1.txt
+log_file=/home/logs/log1.txt
