@@ -9,3 +9,5 @@ print_error_status() {
     echo -e "\e[1;31m FAILURE \e[0m"
   fi
 }
+
+log_file = /home/logs/log1.txt
