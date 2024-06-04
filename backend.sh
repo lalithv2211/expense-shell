@@ -53,9 +53,9 @@ else
 fi
 
 printing_the_header "adding user"
-id expense &>>$LOG
+id expense &>>$log_file
 if [ $? -ne 0 ]; then
-  useradd expense &>>$LOG
+  useradd expense &>>$log_file
 fi
 
 printing_the_header "creating a new /app folder"
