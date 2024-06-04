@@ -53,12 +53,9 @@ else
 fi
 
 printing_the_header "adding user"
-useradd expense &>>$log_file
-if [ $? -eq 0 ]; then
-  print_error_status $?
-else
-  print_error_status $?
-  exit 2
+id expense &>>$LOG
+if [ $? -ne 0 ]; then
+  useradd expense &>>$LOG
 fi
 
 printing_the_header "creating a new /app folder"
